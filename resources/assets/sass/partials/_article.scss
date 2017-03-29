@@ -33,7 +33,7 @@
 
 @include susy-breakpoint(720px) {
     .article {
-        @include span(8 of 12);
+        @include span(8 of 12); //poner 10 of 12
         @include push(2);
     }
 }

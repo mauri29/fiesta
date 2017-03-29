@@ -15,9 +15,11 @@
                     </form>  
                 </div>
                 <div class="panel-body">
-                    <p>{!! trans('terms.intro') !!}</p>
-                    <p>{!! trans('terms.main') !!}</p>
-                    <a href="{{ route('product.index') }}" type="button" class="btn btn-danger pull-right">{{ trans('terms.product') }}</a>
+                    <article class="article">
+                        <p>{!! trans('terms.intro') !!}</p>
+                        <p>{!! trans('terms.main') !!}</p>
+                        <a href="{{ route('product.index') }}" type="button" class="btn btn-danger pull-right">{{ trans('terms.product') }}</a>
+                    </article>
                 </div>
             </div>
         </div>

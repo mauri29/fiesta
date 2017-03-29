@@ -12,34 +12,59 @@ class TagsTableSeeder extends Seeder
     public function run()
     {
         $tags = new \App\Models\Tag([
-            'name' => 'Bebidas',
-            'slug' => 'bebida',
+            'name' => '### &#x1f37a; ###',
+            'slug' => 'cerveza',
         ]);
-        $tags->save();  
+        $tags->save();
         $tags = new \App\Models\Tag([
-            'name' => 'Comestibles',
-            'slug' => 'comestible',
-        ]);
-        $tags->save();  
-        $tags = new \App\Models\Tag([
-            'name' => 'Dulces',
-            'slug' => 'dulce',
-        ]);
-        $tags->save();  
-        $tags = new \App\Models\Tag([
-            'name' => 'Cafes',
+            'name' => '### &#x2615; ###',
             'slug' => 'cafe',
         ]);
-        $tags->save(); 
+        $tags->save();  
         $tags = new \App\Models\Tag([
-            'name' => 'Frutas',
-            'slug' => 'fruta',
+            'name' => '### &#x1f36c; ###',    
+            'slug' => 'dulce',
+        ]);
+        $tags->save();
+        $tags = new \App\Models\Tag([
+            'name' => '### &#x1f36d; ###',     
+            'slug' => 'chupeta',
+        ]);
+        $tags->save();
+        $tags = new \App\Models\Tag([
+            'name' => '### &#127862; ###',
+            'slug' => 'mate', 
+        ]);
+        $tags->save();
+        $tags = new \App\Models\Tag([
+            'name' => '### &#x1f36a; ###',
+            'slug' => 'galleta',
+        ]);
+        $tags->save();
+        $tags = new \App\Models\Tag([
+            'name' => '### &#x1f379; ###',
+            'slug' => 'bebida',
+        ]);
+        $tags->save();           
+        $tags = new \App\Models\Tag([
+            'name' => '### &#x1f36b; ###',
+            'slug' => 'chocolate',
         ]);
         $tags->save(); 
         $tags = new \App\Models\Tag([
-            'name' => 'Chilis',
+            'name' => '### &#127855; ###',
+            'slug' => 'mermelada',   
+        ]);
+        $tags->save();  
+        $tags = new \App\Models\Tag([
+            'name' => '### &#127856; ###',
+            'slug' => 'harina',
+        ]);
+        $tags->save(); 
+        $tags = new \App\Models\Tag([
+            'name' => '### &#x1f525; ###',  
             'slug' => 'chili',
         ]);
-        $tags->save();         
+        $tags->save();                                 
     }
 }

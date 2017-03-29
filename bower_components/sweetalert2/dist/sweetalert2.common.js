@@ -1,22 +1,8 @@
 /*!
- * sweetalert2 v6.3.8
+ * sweetalert2 v6.4.3
  * Released under the MIT License.
  */
 'use strict';
-
-var swalPrefix = 'swal2-';
-
-var prefix = function prefix(items) {
-  var result = {};
-  for (var i in items) {
-    result[items[i]] = swalPrefix + items[i];
-  }
-  return result;
-};
-
-var swalClasses = prefix(['container', 'in', 'iosfix', 'modal', 'overlay', 'fade', 'show', 'hide', 'noanimation', 'close', 'title', 'content', 'spacer', 'confirm', 'cancel', 'icon', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea', 'inputerror', 'validationerror', 'progresssteps', 'activeprogressstep', 'progresscircle', 'progressline', 'loading', 'styled']);
-
-var iconTypes = prefix(['success', 'warning', 'info', 'question', 'error']);
 
 var defaultParams = {
   title: '',
@@ -25,9 +11,11 @@ var defaultParams = {
   html: '',
   type: null,
   customClass: '',
+  target: 'body',
   animation: true,
   allowOutsideClick: true,
   allowEscapeKey: true,
+  allowEnterKey: true,
   showConfirmButton: true,
   showCancelButton: false,
   preConfirm: null,
@@ -65,19 +53,19 @@ var defaultParams = {
   onClose: null
 };
 
-var sweetHTML = ('\n  <div  role="dialog" aria-labelledby="modalTitleId" aria-describedby="modalContentId" class="' + swalClasses.modal + '" tabIndex="-1" >\n    <ul class="' + swalClasses.progresssteps + '"></ul>\n    <div class="' + swalClasses.icon + ' ' + iconTypes.error + '">\n      <span class="x-mark"><span class="line left"></span><span class="line right"></span></span>\n    </div>\n    <div class="' + swalClasses.icon + ' ' + iconTypes.question + '">?</div>\n    <div class="' + swalClasses.icon + ' ' + iconTypes.warning + '">!</div>\n    <div class="' + swalClasses.icon + ' ' + iconTypes.info + '">i</div>\n    <div class="' + swalClasses.icon + ' ' + iconTypes.success + '">\n      <span class="line tip"></span> <span class="line long"></span>\n      <div class="placeholder"></div> <div class="fix"></div>\n    </div>\n    <img class="' + swalClasses.image + '">\n    <h2 class="' + swalClasses.title + '" id="modalTitleId"></h2>\n    <div id="modalContentId" class="' + swalClasses.content + '"></div>\n    <input class="' + swalClasses.input + '">\n    <input type="file" class="' + swalClasses.file + '">\n    <div class="' + swalClasses.range + '">\n      <output></output>\n      <input type="range">\n    </div>\n    <select class="' + swalClasses.select + '"></select>\n    <div class="' + swalClasses.radio + '"></div>\n    <label for="' + swalClasses.checkbox + '" class="' + swalClasses.checkbox + '">\n      <input type="checkbox">\n    </label>\n    <textarea class="' + swalClasses.textarea + '"></textarea>\n    <div class="' + swalClasses.validationerror + '"></div>\n    <hr class="' + swalClasses.spacer + '">\n    <button type="button" role="button" tabIndex="0" class="' + swalClasses.confirm + '">OK</button>\n    <button type="button" role="button" tabIndex="0" class="' + swalClasses.cancel + '">Cancel</button>\n    <span class="' + swalClasses.close + '">&times;</span>\n  </div>\n').replace(/(^|\n)\s*/g, '');
+var swalPrefix = 'swal2-';
 
-var sweetContainer = void 0;
+var prefix = function prefix(items) {
+  var result = {};
+  for (var i in items) {
+    result[items[i]] = swalPrefix + items[i];
+  }
+  return result;
+};
 
-var existingSweetContainers = document.getElementsByClassName(swalClasses.container);
+var swalClasses = prefix(['container', 'shown', 'iosfix', 'modal', 'overlay', 'fade', 'show', 'hide', 'noanimation', 'close', 'title', 'content', 'spacer', 'confirm', 'cancel', 'icon', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'textarea', 'inputerror', 'validationerror', 'progresssteps', 'activeprogressstep', 'progresscircle', 'progressline', 'loading', 'styled']);
 
-if (existingSweetContainers.length) {
-  sweetContainer = existingSweetContainers[0];
-} else {
-  sweetContainer = document.createElement('div');
-  sweetContainer.className = swalClasses.container;
-  sweetContainer.innerHTML = sweetHTML;
-}
+var iconTypes = prefix(['success', 'warning', 'info', 'question', 'error']);
 
 /*
  * Set hover, active and focus-states for buttons (source: http://www.sitepoint.com/javascript-generate-lighter-darker-color)
@@ -113,15 +101,22 @@ var states = {
 /*
  * Add modal + overlay to DOM
  */
-var init = function init() {
+var init = function init(params) {
   if (typeof document === 'undefined') {
     console.error('SweetAlert2 requires document to initialize');
     return;
-  } else if (document.getElementsByClassName(swalClasses.container).length) {
-    return;
   }
 
-  document.body.appendChild(sweetContainer);
+  var container = document.createElement('div');
+  container.className = swalClasses.container;
+  container.innerHTML = sweetHTML;
+
+  var targetElement = document.querySelector(params.target);
+  if (!targetElement) {
+    console.warn('SweetAlert2: Can\'t find the target "' + params.target + '"');
+    targetElement = document.body;
+  }
+  targetElement.appendChild(container);
 
   var modal = getModal();
   var input = getChildByClass(modal, swalClasses.input);
@@ -138,7 +133,7 @@ var init = function init() {
 
   input.onkeydown = function (event) {
     setTimeout(function () {
-      if (event.keyCode === 13) {
+      if (event.keyCode === 13 && params.allowEnterKey) {
         event.stopPropagation();
         sweetAlert.clickConfirm();
       }
@@ -177,17 +172,24 @@ var init = function init() {
 /*
  * Manipulate DOM
  */
-var elementByClass = function elementByClass(className) {
-  return sweetContainer.querySelector('.' + className);
+
+var sweetHTML = ('\n <div  role="dialog" aria-labelledby="modalTitleId" aria-describedby="modalContentId" class="' + swalClasses.modal + '" tabIndex="-1" >\n   <ul class="' + swalClasses.progresssteps + '"></ul>\n   <div class="' + swalClasses.icon + ' ' + iconTypes.error + '">\n     <span class="x-mark"><span class="line left"></span><span class="line right"></span></span>\n   </div>\n   <div class="' + swalClasses.icon + ' ' + iconTypes.question + '">?</div>\n   <div class="' + swalClasses.icon + ' ' + iconTypes.warning + '">!</div>\n   <div class="' + swalClasses.icon + ' ' + iconTypes.info + '">i</div>\n   <div class="' + swalClasses.icon + ' ' + iconTypes.success + '">\n     <span class="line tip"></span> <span class="line long"></span>\n     <div class="placeholder"></div> <div class="fix"></div>\n   </div>\n   <img class="' + swalClasses.image + '">\n   <h2 class="' + swalClasses.title + '" id="modalTitleId"></h2>\n   <div id="modalContentId" class="' + swalClasses.content + '"></div>\n   <input class="' + swalClasses.input + '">\n   <input type="file" class="' + swalClasses.file + '">\n   <div class="' + swalClasses.range + '">\n     <output></output>\n     <input type="range">\n   </div>\n   <select class="' + swalClasses.select + '"></select>\n   <div class="' + swalClasses.radio + '"></div>\n   <label for="' + swalClasses.checkbox + '" class="' + swalClasses.checkbox + '">\n     <input type="checkbox">\n   </label>\n   <textarea class="' + swalClasses.textarea + '"></textarea>\n   <div class="' + swalClasses.validationerror + '"></div>\n   <hr class="' + swalClasses.spacer + '">\n   <button type="button" role="button" tabIndex="0" class="' + swalClasses.confirm + '">OK</button>\n   <button type="button" role="button" tabIndex="0" class="' + swalClasses.cancel + '">Cancel</button>\n   <span class="' + swalClasses.close + '">&times;</span>\n </div>\n').replace(/(^|\n)\s*/g, '');
+
+var getContainer = function getContainer() {
+  return document.body.querySelector('.' + swalClasses.container);
 };
 
 var getModal = function getModal() {
-  return document.body.querySelector('.' + swalClasses.modal) || init();
+  return getContainer() ? getContainer().querySelector('.' + swalClasses.modal) : null;
 };
 
 var getIcons = function getIcons() {
   var modal = getModal();
   return modal.querySelectorAll('.' + swalClasses.icon);
+};
+
+var elementByClass = function elementByClass(className) {
+  return getContainer() ? getContainer().querySelector('.' + className) : null;
 };
 
 var getTitle = function getTitle() {
@@ -357,17 +359,18 @@ var animationEndEvent = function () {
   return false;
 }();
 
-// Reset the page to its previous state
+// Reset previous window keydown handler and focued element
 var resetPrevState = function resetPrevState() {
-  var modal = getModal();
   window.onkeydown = states.previousWindowKeyDown;
   if (states.previousActiveElement && states.previousActiveElement.focus) {
     var x = window.scrollX;
     var y = window.scrollY;
     states.previousActiveElement.focus();
-    window.scrollTo(x, y);
+    if (x && y) {
+      // IE has no scrollX/scrollY support
+      window.scrollTo(x, y);
+    }
   }
-  clearTimeout(modal.timeout);
 };
 
 // Measure width of scrollbar
@@ -449,7 +452,7 @@ var swal2Observer = void 0;
  * Set type, text and actions on modal
  */
 var setParameters = function setParameters(params) {
-  var modal = getModal();
+  var modal = getModal() || init(params);
 
   for (var param in params) {
     if (!defaultParams.hasOwnProperty(param) && param !== 'extraParams') {
@@ -665,10 +668,12 @@ var setParameters = function setParameters(params) {
  * Animations
  */
 var openModal = function openModal(animation, onComplete) {
+  var container = getContainer();
   var modal = getModal();
+
   if (animation) {
     addClass(modal, swalClasses.show);
-    addClass(sweetContainer, swalClasses.fade);
+    addClass(container, swalClasses.fade);
     removeClass(modal, swalClasses.hide);
   } else {
     removeClass(modal, swalClasses.fade);
@@ -676,19 +681,19 @@ var openModal = function openModal(animation, onComplete) {
   show(modal);
 
   // scrolling is 'hidden' until animation is done, after that 'auto'
-  sweetContainer.style.overflowY = 'hidden';
+  container.style.overflowY = 'hidden';
   if (animationEndEvent && !hasClass(modal, swalClasses.noanimation)) {
     modal.addEventListener(animationEndEvent, function swalCloseEventFinished() {
       modal.removeEventListener(animationEndEvent, swalCloseEventFinished);
-      sweetContainer.style.overflowY = 'auto';
+      container.style.overflowY = 'auto';
     });
   } else {
-    sweetContainer.style.overflowY = 'auto';
+    container.style.overflowY = 'auto';
   }
 
-  addClass(document.documentElement, swalClasses.in);
-  addClass(document.body, swalClasses.in);
-  addClass(sweetContainer, swalClasses.in);
+  addClass(document.documentElement, swalClasses.shown);
+  addClass(document.body, swalClasses.shown);
+  addClass(container, swalClasses.shown);
   fixScrollbar();
   iOSfix();
   states.previousActiveElement = document.activeElement;
@@ -738,7 +743,8 @@ var undoIOSfix = function undoIOSfix() {
   }
 };
 
-var modalDependant = function modalDependant() {
+// SweetAlert entry point
+var sweetAlert = function sweetAlert() {
   for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
@@ -774,6 +780,19 @@ var modalDependant = function modalDependant() {
           });
         };
       }
+
+      if (params.input === 'url' && params.inputValidator === null) {
+        params.inputValidator = function (url) {
+          return new Promise(function (resolve, reject) {
+            var urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+            if (urlRegex.test(url)) {
+              resolve();
+            } else {
+              reject('Invalid URL');
+            }
+          });
+        };
+      }
       break;
 
     default:
@@ -783,6 +802,7 @@ var modalDependant = function modalDependant() {
 
   setParameters(params);
 
+  var container = getContainer();
   var modal = getModal();
 
   return new Promise(function (resolve, reject) {
@@ -906,31 +926,33 @@ var modalDependant = function modalDependant() {
         case 'click':
           // Clicked 'confirm'
           if (targetedConfirm && sweetAlert.isVisible()) {
+            sweetAlert.disableButtons();
             if (params.input) {
-              (function () {
-                var inputValue = getInputValue();
+              var inputValue = getInputValue();
 
-                if (params.inputValidator) {
-                  sweetAlert.disableInput();
-                  params.inputValidator(inputValue, params.extraParams).then(function () {
-                    sweetAlert.enableInput();
-                    confirm(inputValue);
-                  }, function (error) {
-                    sweetAlert.enableInput();
-                    if (error) {
-                      sweetAlert.showValidationError(error);
-                    }
-                  });
-                } else {
+              if (params.inputValidator) {
+                sweetAlert.disableInput();
+                params.inputValidator(inputValue, params.extraParams).then(function () {
+                  sweetAlert.enableButtons();
+                  sweetAlert.enableInput();
                   confirm(inputValue);
-                }
-              })();
+                }, function (error) {
+                  sweetAlert.enableButtons();
+                  sweetAlert.enableInput();
+                  if (error) {
+                    sweetAlert.showValidationError(error);
+                  }
+                });
+              } else {
+                confirm(inputValue);
+              }
             } else {
               confirm(true);
             }
 
             // Clicked 'cancel'
           } else if (targetedCancel && sweetAlert.isVisible()) {
+            sweetAlert.disableButtons();
             sweetAlert.closeModal(params.onClose);
             reject('cancel');
           }
@@ -954,8 +976,8 @@ var modalDependant = function modalDependant() {
     };
 
     // Closing modal by overlay click
-    sweetContainer.onclick = function (e) {
-      if (e.target !== sweetContainer) {
+    container.onclick = function (e) {
+      if (e.target !== container) {
         return;
       }
       if (params.allowOutsideClick) {
@@ -967,7 +989,7 @@ var modalDependant = function modalDependant() {
     var confirmButton = getConfirmButton();
     var cancelButton = getCancelButton();
 
-    // Reverse buttons if neede d
+    // Reverse buttons (Confirm on the right side)
     if (params.reverseButtons) {
       confirmButton.parentNode.insertBefore(cancelButton, confirmButton);
     } else {
@@ -1031,20 +1053,19 @@ var modalDependant = function modalDependant() {
         e.preventDefault();
 
         // ENTER/SPACE
-      } else {
-        if (keyCode === 13 || keyCode === 32) {
-          if (btnIndex === -1) {
-            // ENTER/SPACE clicked outside of a button.
-            if (params.focusCancel) {
-              fireClick(cancelButton, e);
-            } else {
-              fireClick(confirmButton, e);
-            }
+      } else if (keyCode === 13 || keyCode === 32) {
+        if (btnIndex === -1 && params.allowEnterKey) {
+          // ENTER/SPACE clicked outside of a button.
+          if (params.focusCancel) {
+            fireClick(cancelButton, e);
+          } else {
+            fireClick(confirmButton, e);
           }
-        } else if (keyCode === 27 && params.allowEscapeKey === true) {
-          sweetAlert.closeModal(params.onClose);
-          reject('esc');
         }
+        // ESC
+      } else if (keyCode === 27 && params.allowEscapeKey === true) {
+        sweetAlert.closeModal(params.onClose);
+        reject('esc');
       }
     };
 
@@ -1157,6 +1178,9 @@ var modalDependant = function modalDependant() {
     // Set modal min-height to disable scrolling inside the modal
     sweetAlert.recalculateHeight = debounce(function () {
       var modal = getModal();
+      if (!modal) {
+        return;
+      }
       var prevState = modal.style.display;
       modal.style.minHeight = '';
       show(modal);
@@ -1243,116 +1267,114 @@ var modalDependant = function modalDependant() {
     }
 
     var populateInputOptions = void 0;
-
-    (function () {
-      switch (params.input) {
-        case 'text':
-        case 'email':
-        case 'password':
-        case 'number':
-        case 'tel':
-          input = getChildByClass(modal, swalClasses.input);
-          input.value = params.inputValue;
-          input.placeholder = params.inputPlaceholder;
-          input.type = params.input;
-          show(input);
-          break;
-        case 'file':
-          input = getChildByClass(modal, swalClasses.file);
-          input.placeholder = params.inputPlaceholder;
-          input.type = params.input;
-          show(input);
-          break;
-        case 'range':
-          var range = getChildByClass(modal, swalClasses.range);
-          var rangeInput = range.querySelector('input');
-          var rangeOutput = range.querySelector('output');
-          rangeInput.value = params.inputValue;
-          rangeInput.type = params.input;
-          rangeOutput.value = params.inputValue;
-          show(range);
-          break;
-        case 'select':
-          var select = getChildByClass(modal, swalClasses.select);
-          select.innerHTML = '';
-          if (params.inputPlaceholder) {
-            var placeholder = document.createElement('option');
-            placeholder.innerHTML = params.inputPlaceholder;
-            placeholder.value = '';
-            placeholder.disabled = true;
-            placeholder.selected = true;
-            select.appendChild(placeholder);
+    switch (params.input) {
+      case 'text':
+      case 'email':
+      case 'password':
+      case 'number':
+      case 'tel':
+      case 'url':
+        input = getChildByClass(modal, swalClasses.input);
+        input.value = params.inputValue;
+        input.placeholder = params.inputPlaceholder;
+        input.type = params.input;
+        show(input);
+        break;
+      case 'file':
+        input = getChildByClass(modal, swalClasses.file);
+        input.placeholder = params.inputPlaceholder;
+        input.type = params.input;
+        show(input);
+        break;
+      case 'range':
+        var range = getChildByClass(modal, swalClasses.range);
+        var rangeInput = range.querySelector('input');
+        var rangeOutput = range.querySelector('output');
+        rangeInput.value = params.inputValue;
+        rangeInput.type = params.input;
+        rangeOutput.value = params.inputValue;
+        show(range);
+        break;
+      case 'select':
+        var select = getChildByClass(modal, swalClasses.select);
+        select.innerHTML = '';
+        if (params.inputPlaceholder) {
+          var placeholder = document.createElement('option');
+          placeholder.innerHTML = params.inputPlaceholder;
+          placeholder.value = '';
+          placeholder.disabled = true;
+          placeholder.selected = true;
+          select.appendChild(placeholder);
+        }
+        populateInputOptions = function populateInputOptions(inputOptions) {
+          for (var optionValue in inputOptions) {
+            var option = document.createElement('option');
+            option.value = optionValue;
+            option.innerHTML = inputOptions[optionValue];
+            if (params.inputValue === optionValue) {
+              option.selected = true;
+            }
+            select.appendChild(option);
           }
-          populateInputOptions = function populateInputOptions(inputOptions) {
-            for (var optionValue in inputOptions) {
-              var option = document.createElement('option');
-              option.value = optionValue;
-              option.innerHTML = inputOptions[optionValue];
-              if (params.inputValue === optionValue) {
-                option.selected = true;
-              }
-              select.appendChild(option);
+          show(select);
+          select.focus();
+        };
+        break;
+      case 'radio':
+        var radio = getChildByClass(modal, swalClasses.radio);
+        radio.innerHTML = '';
+        populateInputOptions = function populateInputOptions(inputOptions) {
+          for (var radioValue in inputOptions) {
+            var radioInput = document.createElement('input');
+            var radioLabel = document.createElement('label');
+            var radioLabelSpan = document.createElement('span');
+            radioInput.type = 'radio';
+            radioInput.name = swalClasses.radio;
+            radioInput.value = radioValue;
+            if (params.inputValue === radioValue) {
+              radioInput.checked = true;
             }
-            show(select);
-            select.focus();
-          };
-          break;
-        case 'radio':
-          var radio = getChildByClass(modal, swalClasses.radio);
-          radio.innerHTML = '';
-          populateInputOptions = function populateInputOptions(inputOptions) {
-            for (var radioValue in inputOptions) {
-              var radioInput = document.createElement('input');
-              var radioLabel = document.createElement('label');
-              var radioLabelSpan = document.createElement('span');
-              radioInput.type = 'radio';
-              radioInput.name = swalClasses.radio;
-              radioInput.value = radioValue;
-              if (params.inputValue === radioValue) {
-                radioInput.checked = true;
-              }
-              radioLabelSpan.innerHTML = inputOptions[radioValue];
-              radioLabel.appendChild(radioInput);
-              radioLabel.appendChild(radioLabelSpan);
-              radioLabel.for = radioInput.id;
-              radio.appendChild(radioLabel);
-            }
-            show(radio);
-            var radios = radio.querySelectorAll('input');
-            if (radios.length) {
-              radios[0].focus();
-            }
-          };
-          break;
-        case 'checkbox':
-          var checkbox = getChildByClass(modal, swalClasses.checkbox);
-          var checkboxInput = getInput('checkbox');
-          checkboxInput.type = 'checkbox';
-          checkboxInput.value = 1;
-          checkboxInput.id = swalClasses.checkbox;
-          checkboxInput.checked = Boolean(params.inputValue);
-          var label = checkbox.getElementsByTagName('span');
-          if (label.length) {
-            checkbox.removeChild(label[0]);
+            radioLabelSpan.innerHTML = inputOptions[radioValue];
+            radioLabel.appendChild(radioInput);
+            radioLabel.appendChild(radioLabelSpan);
+            radioLabel.for = radioInput.id;
+            radio.appendChild(radioLabel);
           }
-          label = document.createElement('span');
-          label.innerHTML = params.inputPlaceholder;
-          checkbox.appendChild(label);
-          show(checkbox);
-          break;
-        case 'textarea':
-          var textarea = getChildByClass(modal, swalClasses.textarea);
-          textarea.value = params.inputValue;
-          textarea.placeholder = params.inputPlaceholder;
-          show(textarea);
-          break;
-        case null:
-          break;
-        default:
-          console.error('SweetAlert2: Unexpected type of input! Expected "text", "email", "password", "select", "checkbox", "textarea" or "file", got "' + params.input + '"');
-          break;
-      }
-    })();
+          show(radio);
+          var radios = radio.querySelectorAll('input');
+          if (radios.length) {
+            radios[0].focus();
+          }
+        };
+        break;
+      case 'checkbox':
+        var checkbox = getChildByClass(modal, swalClasses.checkbox);
+        var checkboxInput = getInput('checkbox');
+        checkboxInput.type = 'checkbox';
+        checkboxInput.value = 1;
+        checkboxInput.id = swalClasses.checkbox;
+        checkboxInput.checked = Boolean(params.inputValue);
+        var label = checkbox.getElementsByTagName('span');
+        if (label.length) {
+          checkbox.removeChild(label[0]);
+        }
+        label = document.createElement('span');
+        label.innerHTML = params.inputPlaceholder;
+        checkbox.appendChild(label);
+        show(checkbox);
+        break;
+      case 'textarea':
+        var textarea = getChildByClass(modal, swalClasses.textarea);
+        textarea.value = params.inputValue;
+        textarea.placeholder = params.inputPlaceholder;
+        show(textarea);
+        break;
+      case null:
+        break;
+      default:
+        console.error('SweetAlert2: Unexpected type of input! Expected "text", "email", "password", "number", "tel", "select", "radio", "checkbox", "textarea", "file" or "url", got "' + params.input + '"');
+        break;
+    }
 
     if (params.input === 'select' || params.input === 'radio') {
       if (params.inputOptions instanceof Promise) {
@@ -1371,10 +1393,16 @@ var modalDependant = function modalDependant() {
     openModal(params.animation, params.onOpen);
 
     // Focus the first element (input or button)
-    setFocus(-1, 1);
+    if (params.allowEnterKey) {
+      setFocus(-1, 1);
+    } else {
+      if (document.activeElement) {
+        document.activeElement.blur();
+      }
+    }
 
     // fix scroll
-    sweetContainer.scrollTop = 0;
+    getContainer().scrollTop = 0;
 
     // Observe changes inside the modal and adjust height
     if (typeof MutationObserver !== 'undefined' && !swal2Observer) {
@@ -1384,25 +1412,11 @@ var modalDependant = function modalDependant() {
   });
 };
 
-// SweetAlert entry point
-var sweetAlert = function sweetAlert() {
-  for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    args[_key2] = arguments[_key2];
-  }
-
-  if (sweetAlert.isVisible()) {
-    sweetAlert.close();
-  }
-
-  return modalDependant.apply(undefined, args);
-};
-
 /*
- * Global function to determine if swal2 modal is visible
+ * Global function to determine if swal2 modal is shown
  */
 sweetAlert.isVisible = function () {
-  var modal = getModal();
-  return isVisible(modal);
+  return !!getModal();
 };
 
 /*
@@ -1410,16 +1424,15 @@ sweetAlert.isVisible = function () {
  */
 sweetAlert.queue = function (steps) {
   queue = steps;
-  var modal = getModal();
   var resetQueue = function resetQueue() {
     queue = [];
-    modal.removeAttribute('data-queue-step');
+    document.body.removeAttribute('data-swal2-queue-step');
   };
   var queueResult = [];
   return new Promise(function (resolve, reject) {
     (function step(i, callback) {
       if (i < queue.length) {
-        modal.setAttribute('data-queue-step', i);
+        document.body.setAttribute('data-swal2-queue-step', i);
 
         sweetAlert(queue[i]).then(function (result) {
           queueResult.push(result);
@@ -1440,7 +1453,7 @@ sweetAlert.queue = function (steps) {
  * Global function for getting the index of current modal in queue
  */
 sweetAlert.getQueueStep = function () {
-  return getModal().getAttribute('data-queue-step');
+  return document.body.getAttribute('data-swal2-queue-step');
 };
 
 /*
@@ -1466,31 +1479,21 @@ sweetAlert.deleteQueueStep = function (index) {
  * Global function to close sweetAlert
  */
 sweetAlert.close = sweetAlert.closeModal = function (onComplete) {
+  var container = getContainer();
   var modal = getModal();
+  if (!modal) {
+    return;
+  }
   removeClass(modal, swalClasses.show);
   addClass(modal, swalClasses.hide);
-
-  // Reset icon animations
-  var successIcon = modal.querySelector('.' + swalClasses.icon + '.' + iconTypes.success);
-  removeClass(successIcon, 'animate');
-  removeClass(successIcon.querySelector('.tip'), 'animate-success-tip');
-  removeClass(successIcon.querySelector('.long'), 'animate-success-long');
-
-  var errorIcon = modal.querySelector('.' + swalClasses.icon + '.' + iconTypes.error);
-  removeClass(errorIcon, 'animate-error-icon');
-  removeClass(errorIcon.querySelector('.x-mark'), 'animate-x-mark');
-
-  var warningIcon = modal.querySelector('.' + swalClasses.icon + '.' + iconTypes.warning);
-  removeClass(warningIcon, 'pulse-warning');
+  clearTimeout(modal.timeout);
 
   resetPrevState();
 
-  var hideModalAndResetState = function hideModalAndResetState() {
-    hide(modal);
-    modal.style.minHeight = '';
-    removeClass(document.documentElement, swalClasses.in);
-    removeClass(document.body, swalClasses.in);
-    removeClass(sweetContainer, swalClasses.in);
+  var removeModalAndResetState = function removeModalAndResetState() {
+    container.parentNode.removeChild(container);
+    removeClass(document.documentElement, swalClasses.shown);
+    removeClass(document.body, swalClasses.shown);
     undoScrollbar();
     undoIOSfix();
   };
@@ -1500,12 +1503,12 @@ sweetAlert.close = sweetAlert.closeModal = function (onComplete) {
     modal.addEventListener(animationEndEvent, function swalCloseEventFinished() {
       modal.removeEventListener(animationEndEvent, swalCloseEventFinished);
       if (hasClass(modal, swalClasses.hide)) {
-        hideModalAndResetState();
+        removeModalAndResetState();
       }
     });
   } else {
-    // Otherwise, hide immediately
-    hideModalAndResetState();
+    // Otherwise, remove immediately
+    removeModalAndResetState();
   }
   if (onComplete !== null && typeof onComplete === 'function') {
     setTimeout(function () {
@@ -1556,7 +1559,7 @@ sweetAlert.resetDefaults = function () {
 
 sweetAlert.noop = function () {};
 
-sweetAlert.version = '6.3.8';
+sweetAlert.version = '6.4.3';
 
 sweetAlert.default = sweetAlert;
 

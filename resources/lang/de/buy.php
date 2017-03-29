@@ -1,7 +1,7 @@
 <?php
 return array(
-	'title' => 'Zahlung',
-	'intro' => '<h3>Zahlungsmöglichkeiten, Versand und Rücktritt</h3>',
+	'title' => 'Kaufssystem',
+	'intro' => '<h3>Kaufssystem, Zahlungsmöglichkeiten, Versand und Rücktritt</h3>',
 	'main' => '<ol> <li><b>RAHMENINFORMATION ZUR EINSTELLUNG</b></li>
 <ul> <li>Der Nutzer akzeptiert die vorhandenen allgemeinen Geschäftsbedingungen vom Unternehmen <u>Super Fiesta</u> und Applikation <u>Super Fiesta</u>.</li>
 <li> Korrekturen oder Modifikationen der eingegebenen Daten in die Applikation <u>Super Fiesta</u> müssen gemäss der vorgeschlagenen Anweisungen vom Unternehmen <u>Super Fiesta</u> in der Sektion "Mein Konto" in der Applikation <u>Super Fiesta</u> durchgeführt werden.</li></ul>

@@ -5,7 +5,7 @@
 	<title>My Mail</title>
 </head>
 <body>
-	<h1>Mail</h1>
+	<h1>You got Mail</h1>
 	<p>{{ $title }}</p>
 </body>
 </html>

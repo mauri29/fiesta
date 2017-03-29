@@ -40,19 +40,19 @@ class Cart
 		$this->totalPrice += $item->price;
 		$this->totalWeight += $item->weight;
 		$this->totalOffer--;
-		if($this->totalWeight<=2000){
+		if($this->totalWeight<=2){
 			$this->totalPost=7;
 		}
-		else if($this->totalWeight>2000 && $this->totalWeight<=5000){
+		else if($this->totalWeight>2 && $this->totalWeight<=5){
 			$this->totalPost=9;
 		}
-		else if($this->totalWeight>5000 && $this->totalWeight<=10000){
+		else if($this->totalWeight>5 && $this->totalWeight<=10){
 			$this->totalPost=10;
 		}
-		else if($this->totalWeight>10000 && $this->totalWeight<=20000){
+		else if($this->totalWeight>10 && $this->totalWeight<=20){
 			$this->totalPost=15;
 		}
-		else if($this->totalWeight>20000 && $this->totalWeight<=30000){
+		else if($this->totalWeight>20 && $this->totalWeight<=30){
 			$this->totalPost=22;
 		}				
 	}
@@ -68,19 +68,19 @@ class Cart
 			$this->totalPrice += $this->items[$id]['item']['price'];
 			$this->totalWeight += $this->items[$id]['item']['weight'];
 			$this->totalOffer--;
-			if($this->totalWeight<=2000){
+			if($this->totalWeight<=2){
 				$this->totalPost=7;
 			}
-			else if($this->totalWeight>2000 && $this->totalWeight<=5000){
+			else if($this->totalWeight>2 && $this->totalWeight<=5){
 				$this->totalPost=9;
 			}
-			else if($this->totalWeight>5000 && $this->totalWeight<=10000){
+			else if($this->totalWeight>5 && $this->totalWeight<=10){
 				$this->totalPost=10;
 			}
-			else if($this->totalWeight>10000 && $this->totalWeight<=20000){
+			else if($this->totalWeight>10 && $this->totalWeight<=20){
 				$this->totalPost=15;
 			}
-			else if($this->totalWeight>20000 && $this->totalWeight<=30000){
+			else if($this->totalWeight>20 && $this->totalWeight<=30){
 				$this->totalPost=22;
 			}
 		}
@@ -97,20 +97,23 @@ class Cart
 		$this->totalPrice -= $this->items[$id]['item']['price'];
 		$this->totalWeight -= $this->items[$id]['item']['weight'];
 		$this->totalOffer++;
-		if($this->totalWeight<=2000){
+		if($this->totalWeight<=2){
 			$this->totalPost=7;
 		}
-		else if($this->totalWeight>2000 && $this->totalWeight<=5000){
+		else if($this->totalWeight>2 && $this->totalWeight<=5){
 			$this->totalPost=9;
 		}
-		else if($this->totalWeight>5000 && $this->totalWeight<=10000){
+		else if($this->totalWeight>5 && $this->totalWeight<=10){
 			$this->totalPost=10;
 		}
-		else if($this->totalWeight>10000 && $this->totalWeight<=20000){
+		else if($this->totalWeight>10 && $this->totalWeight<=20){
 			$this->totalPost=15;
 		}
-		else if($this->totalWeight>20000 && $this->totalWeight<=30000){
+		else if($this->totalWeight>20 && $this->totalWeight<=30){
 			$this->totalPost=22;
+		}
+		if($this->items[$id]['qty'] <= 0){
+			unset($this->items[$id]);
 		}
 	}
 
@@ -120,19 +123,19 @@ class Cart
 		$this->totalPrice -= $this->items[$id]['price'];
 		$this->totalWeight -= $this->items[$id]['weight'];
 		$this->totalOffer += $this->items[$id]['offer'];
-		if($this->totalWeight<=2000){
+		if($this->totalWeight<=2){
 			$this->totalPost=7;
 		}
-		else if($this->totalWeight>2000 && $this->totalWeight<=5000){
+		else if($this->totalWeight>2 && $this->totalWeight<=5){
 			$this->totalPost=9;
 		}
-		else if($this->totalWeight>5000 && $this->totalWeight<=10000){
+		else if($this->totalWeight>5 && $this->totalWeight<=10){
 			$this->totalPost=10;
 		}
-		else if($this->totalWeight>10000 && $this->totalWeight<=20000){
+		else if($this->totalWeight>10 && $this->totalWeight<=20){
 			$this->totalPost=15;
 		}
-		else if($this->totalWeight>20000 && $this->totalWeight<=30000){
+		else if($this->totalWeight>20 && $this->totalWeight<=30){
 			$this->totalPost=22;
 		}
 		unset($this->items[$id]);

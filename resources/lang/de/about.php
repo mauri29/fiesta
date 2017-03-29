@@ -1,9 +1,14 @@
 <?php
 return array(
-	'title' => 'About us',
-	'intro' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint velit officiis enim labore, tenetur itaque rerum corrupti, dicta quae eum autem odit nisi blanditiis, voluptates, alias! Mollitia, ipsam at accusantium. lorem',
-	'main' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum illum reprehenderit autem unde, debitis similique porro repellat explicabo. Fugiat, accusantium quasi placeat magni labore odio veniam, nobis sequi temporibus eos quo distinctio libero suscipit porro aperiam beatae blanditiis eum. Omnis dignissimos iusto natus fuga voluptatibus modi, rem dolorum quo architecto? Tempora omnis minus repellendus voluptates fugiat autem harum, ea eaque molestias consectetur iste error quibusdam ratione, maiores incidunt. Dolor a odit, culpa id expedita minus? Minima incidunt sunt eius aut commodi voluptatibus non eos aperiam, ipsa perspiciatis fugiat quae, similique tempore quidem fuga hic eveniet est corrupti. Dolorem aliquam distinctio in voluptates at, iure, adipisci provident ratione expedita fugit eum nostrum unde, dolor reiciendis minima. Nam aspernatur suscipit deserunt ex!',
-	'conclusion' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, officia.',
-	'motto' => 'Lorem ipsum dolor sit amet.',
-	'product' => 'To the products'
+	'title' => 'Über Super Fiesta',
+	'intro' => '<h3>Super Fiesta</h3>',
+	'main' => '<ul><li> Das Unternehmen <u>Super Fiesta</u> erklärt sich im Handelsregister als Einzelunternehmen für den Import und Verkauf von Lebensmitteln, Tiefkühlprodukten sowie Schuhen, Kleidern und Elektronik für lateinamerikanische Veranstaltungen in der Schweiz.</li>
+<li> Das Unternehmen <u>Super Fiesta</u> besitzt die Generaleinfuhrbewiligung (GEB) von der Schweizerische Eidgenossenschaft und Nahrungsvorsorge Schweiz für den Import von Zucker- und Kafeewaren und erklärt sich für Verpflichtungen und Kenntnis der Garantiefondsbeiträge gemäss Landesversorgungsgesetz und den dazu gehörenden Verordnungen zu erfüllen.</li>
+<li> Das Unternehmen und deren Applikation <u>Super Fiesta</u> haben keinen direkten oder indirekten Absicht, die Schweizer Landwirtschaft sowie die Schweizer Bauernschaft mit den importierten Produkten zu schädigen.</li>
+<li> Das Unternehmen <u>Super Fiesta</u> informiert den Nutzern der Applikation <u>Super Fiesta</u> über Lebensmittelbetriebe im Bezug auf den gesetzlichen Grundlagen Art. 12 Lebensmittel- und Gebrauchsgegenständeverordnung (LGV) gemäss des Amtes für Verbraucherschutz.</li>
+<li> Das Unternehmen <u>Super Fiesta</u> informiert den Nutzern von der Applikation <u>Super Fiesta</u> über die Schutzmassnahmen zur Lagerung, Behandlung, Verarbeitung, Verfallszeit, Verpackung und Präsentation der importierten Produkten.</li>
+<li> Die importierten Produkten entsprechen die vom Schweizerischen Eidgenossenschaft erlaubten Zutaten für den Konsum.</li></ul>',
+	'conclusion' => '',
+	'motto' => '',
+	'product' => 'Zu den Produkten'
 );

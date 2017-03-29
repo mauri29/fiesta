@@ -93,7 +93,7 @@ class ProductController extends Controller
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
-        $total = round($cart->totalPrice + $cart->totalPost + 0.029*($cart->totalPrice + $cart->totalPost),2);
+        $total = round($cart->totalPrice + $cart->totalPost + 0.029*($cart->totalPrice + $cart->totalPost) + 0.3 ,2);
         return view('shop.checkout', ['total' => $total]);
     }
 
@@ -107,7 +107,7 @@ class ProductController extends Controller
         Stripe::setApiKey('sk_test_zeZEFfApadDhX6YeuIrPmZdV');
         try {
             $charge = Charge::create(array(
-                "amount" => round($cart->totalPrice + $cart->totalPost + 0.029*($cart->totalPrice + $cart->totalPost),2) * 100,
+                "amount" => round($cart->totalPrice + $cart->totalPost + 0.029*($cart->totalPrice + $cart->totalPost)+0.3 ,2) * 100,
                 "currency" => "chf",
                 "source" => $request->input('stripeToken'),//"tok_19Nj02D5Hus6m2Z8znQTPtHX", // obtained with Stripe.js
                 "description" => "Test charge"

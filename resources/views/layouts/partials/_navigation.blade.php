@@ -12,7 +12,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ route('product.index') }}">
-                <img src="https://ucarecdn.com/278975b5-c649-41c5-b6f8-dd94fe9ec654/FiestaNeon.jpg" width="75"/>    
+                <img src="https://ucarecdn.com/34134a26-904f-46dd-b2cb-0763c33847e0/LogotipoFinal.png" width="80"/>    
             </a>
             <a class="navbar-brand" href="{{ route('product.shoppingCart') }}">
 				<span class="label label-pill label-danger">
@@ -91,7 +91,7 @@
                             <li>
                                 <a href="{{ url('/user/' . $channel->slug) }}"><i class="fa fa-2x fa-home fa-fw" aria-hidden="true"></i>&nbsp;{{ trans('navigator.myaccount') }}</a>
                                 <a href="{{ url('/user/' . $channel->slug . '/orders') }}">&nbsp;&nbsp;<i class="fa fa-2x fa-check-circle" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;{{ trans('navigator.myorders') }}</a>
-                                <!--<a href="{{ url('/feedback') }}"><i class="fa fa-2x fa-comment-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;  {{ trans('navigator.feedback') }}</a>-->
+                                <a href="{{ url('/feedback') }}"><i class="fa fa-2x fa-comment-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;  {{ trans('navigator.feedback') }}</a>
                                 <!--<a href="{{ url('/upload') }}"><i class="fa fa-2x fa-upload" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; Upload Video</a>-->
                                 <!--<a href="{{ url('/videos') }}"><i class="fa fa-2x fa-video-camera" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp; Your Videos</a>-->
                                 <a href="{{ url('/user/' . $channel->slug . '/edit') }}"><i class="fa fa-2x fa-cog fa-fw" aria-hidden="false"></i>&nbsp;{{ trans('navigator.settings') }}</a>

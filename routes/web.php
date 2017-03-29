@@ -78,6 +78,22 @@ Route::post('/contact', array(
 	'uses' => 'LanguageController@index',
 ));
 
+Route::get('/fiesta', function () {
+    return view('fiesta');
+});
+Route::post('/fiesta', array(
+	'Middleware' => 'LanguageSwitch',
+	'uses' => 'LanguageController@index',
+));
+
+Route::get('/buy', function () {
+    return view('buy');
+});
+Route::post('/buy', array(
+	'Middleware' => 'LanguageSwitch',
+	'uses' => 'LanguageController@index',
+));
+
 Route::get('/faq', function () {
     return view('faq');
 });
@@ -162,8 +178,6 @@ Route::post('/shopping-cart', array(
 	'uses' => 'LanguageController@index',
 ));
 
-
-
 Route::post('/webhook/encoding', 'EncodingWebhookController@handle');
 
 Route::get('/videos/{video}', 'VideoController@show');
@@ -176,6 +190,12 @@ Route::get('/videos/{video}/comments', 'VideoCommentController@index');
 
 Route::get('barcode', 'BarcodeController@index');
 
+Route::post('/sendmail', function(\Illuminate\Http\Request $request, \Illuminate\Mail\Mailer $mailer) {
+	$mailer
+		->to($request->input('mail'))
+		->send(new \App\Mail\MyMail($request->input('title')));
+	return redirect()->back();
+})->name('sendmail');
 
 
 Route::group(['middleware' => ['auth']], function(){

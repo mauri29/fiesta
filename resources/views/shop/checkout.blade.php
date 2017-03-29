@@ -16,10 +16,13 @@
                 </div>
 
                 <div class="panel-body">
-                        <p><a href="{{ route('product.shoppingCart') }}" type="button" class="btn btn-danger pull-right">{{ trans('post.kassa') }}</a></p>
-
-                        	<h5>{{ trans('checkout.checkout') }} {{ trans('checkout.total') }} {{ $total }}.- CHF</h5><hr>
-                            <h5 class="pull-right">{{ trans('checkout.data') }}</h5><br>
+                    <p>
+                        <a href="{{ route('product.shoppingCart') }}" type="button" class="btn btn-danger pull-right">{{ trans('post.kassa') }}</a>
+                    </p>
+                    <div class="post__header">
+                        <strong>{{ trans('checkout.checkout') }} {{ trans('checkout.total') }} {{ $total }}.- CHF</strong>
+                    </div><hr>
+                            <p><h4 class="pull">{{ trans('checkout.data') }}</h4></p>
                             <div id="charge-error" class="alert alert-danger {{ !Session::has('error') ? 'hidden' : '' }}">
                                 {{ Session::get('error') }}
                             </div>
@@ -92,7 +95,7 @@
                                         @endif
                                     </div>
                                 </div><hr>
-                                <h5 class="pull-right">{{ trans('checkout.card') }}</h5><br>
+                                <p><h4 class="pull">{{ trans('checkout.card') }}</h4></p>
                                 <div class="form-group{{ $errors->has('card-name') ? ' has-error' : '' }}">
                                     <label for="card-name" class="col-md-4 control-label">{{ trans('checkout.cardowner') }}</label>
                                     <div class="col-md-6">

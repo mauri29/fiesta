@@ -26,16 +26,16 @@
                             </div>
                         </div>
                     @endif
-                    @foreach(array_chunk($products->getCollection()->all(), 2) as $row)
+                    @foreach(array_chunk($products->getCollection()->all(), 3) as $row)
                         <div class="row">
                             @foreach($row as $product)
-                                <div class="col-sm-6 col-md-6">
+                                <div class="col-sm-6 col-md-4">
                                     <div class="thumbnail">
                                         <img src="{{ $product->imagePath }}" class="img-reponsive" alt="...">
                                         <div class="caption">
-                                            <h4 class="label label-default pull-right price">{{ $product->price }}.- CHF</h4><br>
+                                            <h4 class="pull-right price">{{ $product->price }}.- CHF</h4><br>
                                             <h4 class="pull-left producttt"> {{ $product->title }}</h4><br>
-                                            <h6 class="description">{{ $product->description }}</h6>
+                                            <h6 class="description"> {!! Markdown::convertToHtml(e($product->description)) !!}</h6>
                                             <div class="clearfix">
                                                 <!--<div class="pull-left price">{{ $product->offer }} in stock</div><br>-->
                                                 <a href="{{ route('post.show', [$product->slug]) }}" class="btn btn-info pull-left" role="button">{{ trans('index.info') }}</a>

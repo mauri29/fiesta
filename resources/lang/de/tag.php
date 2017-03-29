@@ -1,5 +1,5 @@
 <?php
 return array(
-	'title' => 'Indice de Blog',
-	'tagged' => 'Etiquetado en:',
+	'title' => 'Blog Index',
+	'tagged' => 'In:',
 );

@@ -1,7 +1,7 @@
 <?php
 return array(
 	'logo' => 'Super Fiesta',
-	'description' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi magni veniam nam fuga voluptate id ipsa voluptatem enim ducimus perspiciatis.',
+	'description' => '',
 	'address' => 'Roggenweg 4, 5034 Suhr',
 	'phone' => 'Phone (Switzerland) : +44 225 878 398',
 	'email' => 'Email: info@fiesta.com',
@@ -12,12 +12,17 @@ return array(
 	'transporte' => 'Transport',
 	'secure' => 'Secure Pay Method',
 	'contacto' => 'Formulary Contact',
+	'fiesta' => 'The App',
+	'buy' => 'Buy system',
 	'faqu' => 'Frequently Asked Questions',
 	'blog' => 'Blog',
 	'faqs' => 'Faq\'s',
 	'contact' => 'Contact us',
 	'rights' => '© 2017 - All Rights reserved with Fiesta.',
-	'send' => 'Send'
+	'send' => 'Send',
+	'Name' => 'Your Name',
+	'E-Mail' => 'Your E-Mail',
+	'Message' => 'Your Message',
 
 
 );

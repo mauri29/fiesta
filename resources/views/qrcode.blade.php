@@ -1,13 +1,16 @@
-<?php
+@extends('layouts.app')
 
-header('Content-Type: image/png');
+@section('content')
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-info">
+                <div class="panel-heading"><i class="fa fa-users fa-2x" aria-hidden="true"></i>&nbsp; {{ trans('about.title') }}
+                </div>
+                <div class="panel-body">
+                	<img src="qrcode.php?text=https://www.superfiesta.ch/post/Colombiana300mL&size=200&padding=10" alt="QR Code">
 
-require_once 'vendor/autoload.php';
-
-$qr = new Endroid\QrCode\QrCode();
-
-$qr->setText('fiesta.ngrok.io');
-$qr->setSize(200);
-$qr->setPadding(10);
-
-$qr->render();
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

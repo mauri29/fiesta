@@ -3,7 +3,7 @@ SweetAlert2
 
 [![Build Status](https://travis-ci.org/limonte/sweetalert2.svg?branch=master)](https://travis-ci.org/limonte/sweetalert2) [![Downloads](https://img.shields.io/npm/dt/sweetalert2.svg)](https://www.npmjs.com/package/sweetalert2) [![Version](https://img.shields.io/npm/v/sweetalert2.svg)](https://www.npmjs.com/package/sweetalert2) [![Standard - JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sweetalert2/Lobby) [![PayPal Donate](https://img.shields.io/badge/donate-PayPal.me-ff69b4.svg)](https://www.paypal.me/limonte/5)
 
-An awesome replacement for JavaScript's popup boxes.
+An awesome and accessible (WAI-ARIA) replacement for JavaScript's popup boxes.
 
 What's the difference between SweetAlert and SweetAlert2?
 ---------------------------------------------------------
@@ -143,8 +143,9 @@ Configuration
 | `titleText`             | `null`               | The title of the modal, as text. Useful to avoid HTML injection. |
 | `text`                  | `null`               | A description for the modal. It can either be added to the object under the key "text" or passed as the second parameter of the function. |
 | `html`                  | `null`               | A HTML description for the modal. If `text` and `html` parameters are provided in the same time, "text" will be used. |
-| `type `                 | `null`               | The type of the modal. SweetAlert2 comes with [5 built-in types](#modal-types) which will show a corresponding icon animation: `warning`, `error`, `success`, `info` and `question`. It can either be put in the array under the key `type` or passed as the third parameter of the function. |
-| `input`                 | `null`               | Input field type, can be `'text'`, `'email'`, `'password'`, `'number'`, `'tel'`, `'range'`, `'textarea'`, `'select'`, `'radio'`, `'checkbox'` and `'file'`. |
+| `type`                  | `null`               | The type of the modal. SweetAlert2 comes with [5 built-in types](#modal-types) which will show a corresponding icon animation: `warning`, `error`, `success`, `info` and `question`. It can either be put in the array under the key `type` or passed as the third parameter of the function. |
+| `target`                | `'body'`             | The container element for adding modal into. |
+| `input`                 | `null`               | Input field type, can be `'text'`, `'email'`, `'password'`, `'number'`, `'tel'`, `'range'`, `'textarea'`, `'select'`, `'radio'`, `'checkbox'`, `'file'` and `'url'`. |
 | `width`                 | `'500px'`            | Modal window width, including paddings (`box-sizing: border-box`). Can be in `px` or `%`. |
 | `padding`               | `20`                 | Modal window padding. |
 | `background`            | `'#fff'`             | Modal window background (CSS `background` property). |
@@ -153,6 +154,7 @@ Configuration
 | `animation`             | `true`               | If set to `false`, modal CSS animation will be disabled. |
 | `allowOutsideClick`     | `true`               | If set to `false`, the user can't dismiss the modal by clicking outside it. |
 | `allowEscapeKey`        | `true`               | If set to `false`, the user can't dismiss the modal by pressing the <kbd>Esc</kbd> key. |
+| `allowEnterKey`         | `true`               | If set to `false`, the user can't confirm the modal by pressing the <kbd>Enter</kbd> or <kbd>Space</kbd> keys, unless they manually focus the confirm button. |
 | `showConfirmButton`     | `true`               | If set to `false`, a "Confirm"-button will not be shown. It can be useful when you're using `html` parameter for custom HTML description. |
 | `showCancelButton`      | `false`              | If set to `true`, a "Cancel"-button will be shown, which the user can click on to dismiss the modal. |
 | `confirmButtonText`     | `'OK'`               | Use this to change the text on the "Confirm"-button. |

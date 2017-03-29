@@ -17,7 +17,9 @@
 
                 <div class="panel-body">
                     <p><a href="{{ route('product.shoppingCart') }}" type="button" class="btn btn-danger pull-right">{{ trans('post.kassa') }}</a></p>
-                            <h5>{{ trans('checkout.checkout') }} {{ trans('checkout.total') }} {{ $total }}.- CHF</h5><hr>
+                    <div class="post__header">
+                        <strong>{{ trans('checkout.checkout') }} {{ trans('checkout.total') }} {{ $total }}.- CHF</strong>
+                    </div><hr>
                             <div id="charge-error" class="alert alert-danger {{ !Session::has('error') ? 'hidden' : '' }}">
                                 {{ Session::get('error') }}
                             </div>

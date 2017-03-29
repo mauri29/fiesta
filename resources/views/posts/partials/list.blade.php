@@ -1,5 +1,4 @@
 @if($posts->count())
-@include('layouts.partials.sidebar')
     @foreach($posts as $post)
         <div class="post">
             <h1 class="post__header">
@@ -9,7 +8,13 @@
             <div class="post__author">
                 <span class="post__time"><a href="{{ route('blog') }}">Super Fiesta </a>{{trans('blog.by')}} {{$post->created_at->diffForHumans()}}</span>
             </div>
-            <div class="post__preview">{{ $post->teaser }}<a href="{{ route('post.show', [$post->slug]) }}" class="btn btn-info pull-right" role="button">{{ trans('blog.more') }}</a><hr>
+            <div class="post__time"><!-- preview -->
+                {{ $post->teaser }}
+                <!--{!! Markdown::convertToHtml(e($post->teaser)) !!}-->
+                <a href="{{ route('post.show', [$post->slug]) }}" class="btn btn-info pull-right" role="button">
+                    {{ trans('blog.more') }}
+                </a>
+                <hr>
             </div>
             
         </div>            

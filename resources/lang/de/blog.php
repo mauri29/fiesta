@@ -1,7 +1,7 @@
 <?php
 return array(
 	'title' => 'Blog',
-	'product' => 'Zu den Produkte',
+	'product' => 'Zu den Produkten',
 	'more' => 'Mehr...',
 	'by' => 'veröffentlichte',
 	'nopost' => 'Keine Posts hier sichtbar.'

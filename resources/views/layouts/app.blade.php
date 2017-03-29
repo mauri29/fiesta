@@ -4,6 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="https://ucarecdn.com/278975b5-c649-41c5-b6f8-dd94fe9ec654/FiestaNeon.jpg" type="image/x-icon">
+    <meta property="og:site_name" content="superfiesta.ch">
+    <link rel="canonical" href="https://www.superfiesta.ch">
+    <meta name="description" content="Bienvenidos a Super Fiesta, el mejor sitio donde encontrarás los productos de tu tierrita.">
+    <meta property="og:image" content="article">
+    <meta property="og:image" content="https://ucarecdn.com/278975b5-c649-41c5-b6f8-dd94fe9ec654/FiestaNeon.jpg">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -44,10 +50,6 @@
             $('#myCarousel').carousel(id);
         });  
     </script>-->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/sweetalert2/6.0.0/sweetalert2.js"></script>
-    <script src="bower_components/es6-promise/es6-promise.auto.min.js"></script>
-    <script src="bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
 
 
     <!-- Styles -->
@@ -65,18 +67,19 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">   
-    <link rel="stylesheet" href="bower_components/sweetalert2/dist/sweetalert2.min.css">
+    
+    <!--<link rel="stylesheet" href="bower_components/sweetalert2/dist/sweetalert2.min.css">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <!-- footer-->
     <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
     <!--footer -->
+    <link href="https://cdn.jsdelivr.net/sweetalert2/6.0.0/sweetalert2.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
     <link rel="stylesheet" href="{{ URL::to('css/app.css') }}">
     @yield('styles')
-
-
 </head>
 <style type="text/css">
 /*navbar*/
@@ -391,6 +394,18 @@ footer { background-color:#0c1a1e; min-height:350px; font-family: 'Open Sans', s
 .footerleft p { color:#fff; font-size:12px !important; font-family: 'Open Sans', sans-serif; margin-bottom:15px;}
 .footerleft p i { width:20px; color:#999;}
 
+.Forma {
+    color: #fff;
+    font-family: 'Pacifico', sans-serif;
+    transition: color 0.2s linear 0s, background 0.2s linear 0s;
+}
+.Forma .input {
+    color: #000;
+    font-family: 'Pacifico', sans-serif;
+}
+.Forma .botonn {
+    background-color: #4CAF50;
+}
 
 .paddingtop-bottom {  margin-top:50px;}
 .footer-ul { list-style-type:none;  padding-left:0px; margin-left:2px;}
@@ -453,9 +468,7 @@ footer { background-color:#0c1a1e; min-height:350px; font-family: 'Open Sans', s
 <body>
      <div id="app">
         @include('layouts.partials._navigation')
-        <div class="container">
             @yield('content')
-        </div>
         @include('layouts.partials._footer')
     </div>
     
@@ -476,9 +489,27 @@ footer { background-color:#0c1a1e; min-height:350px; font-family: 'Open Sans', s
         });
         @endif
     </script>
-     
-    <script type="text/javascript" src="/js/maintainscroll.jquery.min.js"></script>
-    <script src="/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <!--<script src="https://cdn.jsdelivr.net/sweetalert2/6.0.0/sweetalert2.js"></script>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/sweetalert2/6.0.0/sweetalert2.js"></script>
+    
+    <!-- Begin FACEBOOK -->
+    <div id="fb-root"></div>
+        <script>
+            (function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8";
+                  fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+    <!-- End FACEBOOK -->
+    <!--<script src="{{asset('js/maintainscroll.jquery.js')}}"></script>-->
+    <!--<script type="text/javascript" src="/js/maintainscroll.jquery.min.js"></script>-->
+    <!--<script src="/js/app.js"></script>-->
+    <script src="{{asset('js/app.js')}}"></script>
     @yield('scripts')
 </body>
 </html>

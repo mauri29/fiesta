@@ -27,14 +27,12 @@
                                     @foreach($products as $product)
                                         <li class="list-group-item">
                                             <img src="{{ $product['item']['imagePath'] }}" class="author__image">
-                                            &nbsp;<span class="label label-pill label-danger pull-left">{{ $product['qty'] }}</span><br>
+                                            &nbsp;<span class="label label-pill label-danger pull-left">{{ $product['qty'] }}</span>&nbsp;<span class="pull">{{ $product['price'] }}.- CHF</span>&nbsp;<span class="label label-primary pull">{{ $product['weight'] }} kg.</span><br>
                                             &nbsp;<span class="label label-primary pull"><strong>{{ $product['item']['title'] }}</strong></span><br>
-                                            &nbsp;<span class="label label-default">{{ $product['price'] }}.- CHF</span>
-                                            <span class="label label-default">{{ $product['weight'] }} gr.</span>
                                             <!--<span class="badge pull-right">{{ $product['offer'] }} {{ trans('shop.stock') }}</span><br>-->
 
-                                            <a href="{{ route('product.addByOne', ['id' => $product['item']['id']]) }}" class="btn btn-success dropdown-toogle"><i class="fa fa-arrow-up" aria-hidden="true"></i>{{ trans('shop.up') }}</a>&nbsp;
-                                            <a href="{{ route('product.reduceByOne', ['id' => $product['item']['id']]) }}" class="btn btn-success dropdown-toogle"><i class="fa fa-arrow-down" aria-hidden="true"></i>{{ trans('shop.down') }}</a>&nbsp;
+                                            <a href="{{ route('product.addByOne', ['id' => $product['item']['id']]) }}" class="btn btn-success dropdown-toogle"><i class="fa fa-plus" aria-hidden="true"></i>{{ trans('shop.up') }}</a>&nbsp;
+                                            <a href="{{ route('product.reduceByOne', ['id' => $product['item']['id']]) }}" class="btn btn-success dropdown-toogle"><i class="fa fa-minus" aria-hidden="true"></i>{{ trans('shop.down') }}</a>&nbsp;
                                             <a href="{{ route('product.remove', ['id' => $product['item']['id']]) }}" class="btn btn-success dropdown-toogle"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         </li>
                                     @endforeach
@@ -45,13 +43,13 @@
                                 </div>
                                 <div class="post__author">                                
                                     <ul class="list-group">
-                                        <li class="list-group-item"><strong>{{ trans('shop.tpps') }}</strong><span class="label label-primary pull-right"> {{ $totalPrice }}.- CHF</span></li>
+                                        <li class="list-group-item"><strong>{{ trans('shop.tpps') }}</strong><span class="pull-right"> {{ $totalPrice }}.- CHF</span></li>
                                         <li class="list-group-item">
-                                            <strong>{{ trans('shop.tps') }}</strong> <span class="label label-default">{{ $totalWeight }} gr.</span> 
+                                            <strong>{{ trans('shop.tps') }}</strong> <span class="label label-primary">{{ $totalWeight }} kg.</span> 
                                             </strong>
-                                        <span class="label label-primary pull-right"> {{ $totalPost }}.- CHF</span></li>
+                                        <span class="pull-right"> {{ $totalPost }}.- CHF</span></li>
                                         <div class="panel-footer">
-                                            <strong>{{ trans('shop.total') }} </strong><span class="label label-warning pull-right">{{ $totalPrice + $totalPost }}.- CHF</span>
+                                            <strong>{{ trans('shop.total') }} </strong><span class="pull-right">{{ $totalPrice + $totalPost }}.- CHF</span>
                                         </div>
                                     </ul>
                                 </div>

@@ -16,30 +16,31 @@
                 </div>
 
                 <div class="panel-body">
-                    <img src="{{ $post->image }}" class="author__image">
-                    <div class="author__details">
-                        &nbsp;<a href="{{ route('blog') }}" class="author__name">Super Fiesta</a><!-- $post->product->fullName()? -->
-                        <div class="author__post-time">&nbsp;{{ trans('post.posted') }} {{ $post->created_at->diffForHumans() }}</div>
-                    </div><br>
                     <article class="article">
-                        
+                        <img src="{{ $post->image }}" class="author__image">
+                        &nbsp;<a href="{{ route('blog') }}" class="author__name">Super Fiesta</a>
+                        @foreach($post->tags as $tag)
+                            <a href="{{ route('posts.tagged', $tag->slug) }}" class="tag pull-right">{!! Markdown::convertToHtml(e($tag->name)) !!}</a>
+                        @endforeach
+                        <!-- $post->product->fullName()? -->
+                        <div class="author__post-time">&nbsp;{{ trans('post.posted') }} {{ $post->created_at->diffForHumans() }}<br><br>
                         <!--<h1 class="article__header">{{ $post->title }}</h1>-->
                         <h3 class="article__subheader">
-                        {!! Markdown::convertToHtml(e($post->teaser)) !!}
+                        {!! Markdown::convertToHtml($post->teaser) !!}
                         </h3>                        
                         @include('post.partials.slide', [
                             'url' => $post->image,
                             'alt' => 'Pinguino',
                         ])
-                        <div class="article__body">
+                        <div class="fb-like pull-right" data-href="https://www.superfiesta.ch" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                        <div class="article__body text-align: justify">
                             {!! Markdown::convertToHtml(e($post->body)) !!}
                         </div>
-                        @foreach($post->tags as $tag)
-                            <a href="{{ route('posts.tagged', $tag->slug) }}" class="tag">{{ $tag->name }}</a>    
-                        @endforeach
+                        
+                        <p><a href="{{ route('product.index') }}" type="button" class="btn btn-danger pull-right">{{ trans('post.product') }}</a></p>
                     </article>
-                    <p><a href="{{ route('product.index') }}" type="button" class="btn btn-danger pull-right">{{ trans('post.product') }}</a></p>
                 </div>
+                @include('layouts.partials.sidebar')
             </div>
         </div>
     </div>
